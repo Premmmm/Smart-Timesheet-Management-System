@@ -3,7 +3,7 @@
 *::after{
 	box-sizing: border-box;
 	margin: 0;
-	padding: 0; 
+	padding: 0;
 }
 
 
@@ -55,12 +55,9 @@ td{
 	padding: 1rem 2rem;
 	text-align: center;
 	font-weight:600;
+	
 }
 
-a{
-	text-decoration: none;
-	color: #2962ff; 
-}
 
 tr:nth-child(even){
 		background-color: #f4f6fb;
@@ -88,7 +85,32 @@ tr:nth-child(even){
 		text-align: center;
 		color: #a68b00;
         }
-
+form {
+			position: absolute;
+			margin-left: 15px;
+			top: 190px;
+			display: flex;
+			justify-content:space-around;
+			align-items:center;
+		}
+		
+.submit_button{
+	background:white;
+    color:#2962ff;
+    border: none;
+	margin-left: 15px;
+    padding: 5px;
+    width: 100px;
+    height: 30px;
+	cursor: pointer;
+	text-align: center;
+    font-size: 17px;
+    font-weight: bold;
+}
+input[type="text"]{
+	height: 30px;
+	width: 300px;
+}
 .approved{
 	    border-radius: 0.2rem;
 		background-color: #c8e6c9;
@@ -98,11 +120,11 @@ tr:nth-child(even){
 }
 		
 table{
+	top: 20px;
 	border-collapse: collapse;
 	background-color: white;
     border-radius: 5px;
-	text-align: left;
-	margin-top: -20%;
+	text-align: center;
 	overflow: hidden;	
 }
 
@@ -122,26 +144,45 @@ tr:nth-child(even) {
     right: 15px;
     top: 30px;
 }
-button [type="approvebutton"] {
-            cursor: pointer;
-            background:green;
-            color: white;
-        }
-button [type="rejectbutton"]{
-    cursor: pointer;
-    background:red;
-            color: white;
+a{
+	text-decoration: none;
+	color: white; 
+	font-weight: bold;
 }
 
-input[name=submit2] {
-    background:white;
-    color:#2962ff;
+button[type="approvebutton"] {
+            cursor: pointer;
+            background:rgb(84, 216, 84);
+            color: white;
+			height: 30px;
+			border: none;
+			border-radius: 3px;
+			width: 100px;
+			text-align: center;
+        }
+button[type="rejectbutton"]{
+    cursor: pointer;
+	text-align: center;
+	border-radius: 3px;
+	border: none;
+    background:rgb(221, 65, 65);
+    color: white;
+	height: 30px;
+	width: 100px;
+}
+
+button[name=submit2] {
+    background:#2962ff;
+    color:white;
     border: none;
     padding: 10px;
-    width: auto;
+    width: 100px;
     height: auto;
     font-size: 20px;
     font-weight: bold;
+}
+thead{
+	box-shadow: 0 5px 10px #e1e5ee;
 }
 
 

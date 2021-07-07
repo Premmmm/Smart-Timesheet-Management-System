@@ -16,7 +16,7 @@ app.secret_key = 'Team-F'
 # MySQL Credentials
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = ''
+app.config['MYSQL_PASSWORD'] = 'premraj123!'
 app.config['MYSQL_DB'] = 'timesheet'
 
 mysql = MySQL(app)
@@ -57,7 +57,7 @@ def employee_history():
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
     # Querying the database for getting the employee_history
     cursor.execute(
-        "select * from employee_history where eid =%s order by end_date desc", [session['employeeside_eid']])
+        "select * from employee_history where eid =%s and active_flag =%s order by end_date desc", [session['employeeside_eid'],"Y"])
     # Fetching all the rows
     empTimesheetDetails = cursor.fetchall()
     # Initializing the list
@@ -87,9 +87,6 @@ def employee_history():
     return render_template('employee_history.html', history=empTimesheetHistoryList)
 
 
-
-
-
 @app.route('/employee_timesheet_enter', methods=['GET', 'POST'])
 def employee_timesheet_enter():
     if session['employeeloggedin'] == True:
@@ -99,23 +96,28 @@ def employee_timesheet_enter():
             end_date = request.args.get("ed")
             start_date = request.args.get("sd")
             status = request.args.get("status")
-
+            print(f'id: {id}')
+            print(f'Status: {status}')
             # Setting cursor
             cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
             currentTimesheet = [id, start_date, end_date,
                                 '0', '0', '0', '0', '0', '0', '0', "PENDING"]
             # Code for PENDING Status
             if status.lower() == "pending":
+                print('came inside pending')
                 cursor.close()
                 return render_template('employee_timesheet_enter.html', ct=currentTimesheet)
 
             # Code for APPROVED Status
             elif status.lower() == "approved" or status.lower() == "submitted":
+                print('came inside approved and submitted')
                 cursor.execute(
-                    "select * from employee_latest where eid=%s", [id])
+                    "select * from employee_history where eid=%s and active_flag=%s and end_date=%s", [id, "Y", end_date])
                 val = cursor.fetchone()
+                print(f'val: {val}')
                 cursor.close()
                 if val:
+                    print("Came inside val")
                     currentTimesheet = [id, val['start_date'], val['end_date'], val['sat'], val['sun'],
                                         val['mon'], val['tue'], val['wed'], val['thu'], val['fri'], val['status']]
                     return render_template('employee_timesheet_enter.html', ct=currentTimesheet)
@@ -124,6 +126,7 @@ def employee_timesheet_enter():
 
             # Code for REJECTED Status
             elif status.lower() == 'rejected':
+                print('came inside rejected')
                 cursor.execute(
                     "select * from employee_latest where eid=%s", [id])
                 val = cursor.fetchone()
@@ -194,6 +197,12 @@ def employee_timesheet_enter():
         return render_template('employee_login.html')
 
 
+@app.route('/employee_logout')
+def logout():
+    session['employeeloggedin'] = False
+    return render_template('MainScreen.html')
+
+
 @app.route('/admin_login', methods=['GET', 'POST'])
 def admin_login():
     # Initializing msg variable
@@ -222,13 +231,14 @@ def admin_login():
 
 @app.route('/admin_select')
 def admin_select():
-    return render_template('admin_select.html', aid=session['adminside_aid'])
+    return render_template('admin_select.html')
 
 
 @app.route('/pending', methods=['GET', 'POST'])
 def pending():
+    # This checks for get request
     if request.method == "GET":
-        aid = request.args.get('id')
+        aid = session['adminside_aid']
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
         cursor.execute(
             "select * from employee_latest where aid=%s and status=%s", [aid, "SUBMITTED"])
@@ -242,19 +252,33 @@ def pending():
             for val in employeeData:
                 i = employeeData.index(val)
                 if adminCheckData:
-                    employeeAndAdminDataList.append([[{'eid': val['eid'], 'saturday': val['sat'], 'sunday': val['sun'], 'monday': val['mon'], 'tuesday': val['tue'], 'wednesday': val['wed'], 'thursday': val['thu'], 'friday': val['fri'], 'start_date':val['start_date'], 'end_date':val['end_date']}
-                                                     ], [{'saturday': adminCheckData[i]['sat'], 'sunday': adminCheckData[i]['sun'], 'monday': adminCheckData[i]['mon'],
-                                                          'tuesday': adminCheckData[i]['tue'], 'wednesday': adminCheckData[i]['wed'], 'thursday': adminCheckData[i]['thu'], 'friday': adminCheckData[i]['fri']}]])
+                    employeeAndAdminDataList.append([[{'eid': val['eid'], 'saturday': val['sat'], 'sunday': val['sun'], 'monday': val['mon'], 'tuesday': val['tue'], 'wednesday': val['wed'], 'thursday': val['thu'], 'friday': val['fri'], 'start_date':val['start_date'], 'end_date':val['end_date'], 'aid':aid}
+                                                      ], [{'saturday': adminCheckData[i]['sat'], 'sunday': adminCheckData[i]['sun'], 'monday': adminCheckData[i]['mon'],
+                                                           'tuesday': adminCheckData[i]['tue'], 'wednesday': adminCheckData[i]['wed'], 'thursday': adminCheckData[i]['thu'], 'friday': adminCheckData[i]['fri']}]])
                 else:
-                    employeeAndAdminDataList.append([[{'eid': val['eid'], 'saturday': val['sat'], 'sunday': val['sun'], 'monday': val['mon'], 'tuesday': val['tue'], 'wednesday': val['wed'], 'thursday': val['thu'], 'friday': val['fri'], 'start_date':val['start_date'], 'end_date':val['end_date']}
-                                                 ], [{'saturday': '0', 'sunday': '0', 'monday': '0',
-                                                      'tuesday': '0', 'wednesday': '0', 'thursday': '0', 'friday': '0'}]])
-        
-        print("Printing")
-        for i in employeeAndAdminDataList:
-            print(i)
-        print(len(employeeAndAdminDataList))
+                    employeeAndAdminDataList.append([[{'eid': val['eid'], 'saturday': val['sat'], 'sunday': val['sun'], 'monday': val['mon'], 'tuesday': val['tue'], 'wednesday': val['wed'], 'thursday': val['thu'], 'friday': val['fri'], 'start_date':val['start_date'], 'end_date':val['end_date'], 'aid':aid}
+                                                      ], [{'saturday': 'N/A', 'sunday': 'N/A', 'monday': 'N/A',
+                                                           'tuesday': 'N/A', 'wednesday': 'N/A', 'thursday': 'N/A', 'friday': 'N/A'}]])
+
         return render_template('admin_pending.html', employeeAdminData=employeeAndAdminDataList)
+
+
+@app.route('/status')
+def status():
+    eid = request.args.get('eid')
+    end_date = request.args.get('ed')
+    status = request.args.get('status')
+    aid = request.args.get('aid')
+    print(status)
+    print(type(status))
+    print(type(str(status)))
+    cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+    cursor.execute('update employee_latest set status=%s where eid=%s and aid=%s and end_date=%s', [
+                   status, eid, aid, end_date])
+    cursor.execute('update employee_history set status=%s where eid=%s and aid=%s and end_date=%s and active_flag=%s', [
+                   status, eid, aid, end_date, "Y"])
+    mysql.connection.commit()
+    return redirect(url_for('pending'))
 
 
 @app.route('/approved', methods=['GET', 'POST'])
@@ -293,15 +317,9 @@ def all():
         # Checking if the query returned tuple is empty
         if adminAllData:
             for val in adminAllData:
-                adminAllDataList.append([{'eid': val['eid'], 'saturday': val['sat'], 'sunday': val['sun'], 'monday': val['mon'], 'tuesday': val['tue'], 'wednesday': val['wed'], 'thursday': val['thu'], 'friday': val['fri'], 'start_date':val['start_date'], 'end_date':val['end_date'], 'active_flag':val['active_flag']}
+                adminAllDataList.append([{'eid': val['eid'],'status':val['status'] ,'saturday': val['sat'], 'sunday': val['sun'], 'monday': val['mon'], 'tuesday': val['tue'], 'wednesday': val['wed'], 'thursday': val['thu'], 'friday': val['fri'], 'start_date':val['start_date'], 'end_date':val['end_date'], 'active_flag':val['active_flag']}
                                          ])
         return render_template('admin_all.html', adminAllData=adminAllDataList)
-
-
-@app.route('/employee_logout')
-def logout():
-    session['employeeloggedin'] = False
-    return render_template('MainScreen.html')
 
 
 @app.route('/login', methods=['GET', 'POST'])

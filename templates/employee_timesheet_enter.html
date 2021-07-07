@@ -4,14 +4,11 @@
 <head>
 	<meta charset="utf-8">
 	<title>Timesheet</title>
-	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style3.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='employee_timesheet_enter.css') }}">
 	<h1>TIMESHEET ENTRY</h1>
 </head>
 
 <body>
-	<h3>Name:abcd</h3>
-	<div class="filter">
-	</div>
 	<div>
 		<table>
 			<thead>
@@ -50,7 +47,18 @@
 	</div>
 	<div class="msg">{{ msg }} </div>
 	<div class="button_container">
-		<input type="submit" name="" disabled class="button1">
+		{% if ct[10].lower() == "submitted" %}
+		<input type="submit" name="" disabled class="button1" />
+		{% endif %}
+		{% if ct[10].lower() == "approved" %}
+		<input type="submit" name="" disabled class="button1" />
+		{% endif %}
+		{% if ct[10].lower() == "pending" %}
+		<input type="submit" name="" class="button1" />
+		{% endif %}
+		{% if ct[10].lower() == "rejected" %}
+		<input type="submit" name="" class="button1" />
+		{% endif %}
 		<button type="button" class="button"><a href="/employee_logout">Logout</a></button>
 		</form>
 	</div>

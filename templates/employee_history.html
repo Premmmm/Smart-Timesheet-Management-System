@@ -3,7 +3,7 @@
 
 <head>
 	<title>Timesheet {{history[0][0]['eid']}} </title>
-	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style2.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='employee_history.css') }}">
 </head>
 <h1 align="center">EMPLOYEE TIMESHEET</h1>
 
@@ -63,11 +63,9 @@
 			{% endfor %}
 		</tbody>
 	</table>
-	<form align="right" name="form1" method="post" action="aircraft.html">
-		<label class="logoutLblPos">
-			<input name="submit2" type="submit" id="submit" value="LOG OUT">
-		</label>
-	</form>
+	<label class="logoutLblPos">
+		<button name="submit2" type="button"><a href="/employee_logout">Logout</a></button>
+	</label>
 </body>
 
 </html>

@@ -6,27 +6,30 @@
 </head>
 <h1 align="center">PENDING EMPLOYEE TIMESHEET</h1>
 <form action="" method="POST">
-    <input type="text" name="get_id" placeholder="Enter ID" required>
-    <button type="submit" name="seach_by_id">SEARCH</button>
+    <input type="text" name="get_id" placeholder="ENTER ID" required>
+    <button class="submit_button" type="submit" name="seach_by_id">SEARCH</button>
+
 </form>
 <table>
-    <tr>
-        <th>EmployeeID</th>
-        <th>Start_Date</th>
-        <th>End_Date</th>
-        <th>Saturday</th>
-        <th>Sunday</th>
-        <th>Monday</th>
-        <th>Tuesday</th>
-        <th>Wednesday</th>
-        <th>Thursday</th>
-        <th>Friday</th>
-        <th>Approve</th>
-        <th>Reject</th>
-    </tr>
+    <thead>
+        <tr>
+            <th>EmployeeID</th>
+            <th>Start_Date</th>
+            <th>End_Date</th>
+            <th>Saturday</th>
+            <th>Sunday</th>
+            <th>Monday</th>
+            <th>Tuesday</th>
+            <th>Wednesday</th>
+            <th>Thursday</th>
+            <th>Friday</th>
+            <th>Approve</th>
+            <th>Reject</th>
+        </tr>
     </thead>
     <tbody>
         {% for val in employeeAdminData %}
+
         <tr>
             <td>
                 {{val[0][0]['eid']}}
@@ -40,9 +43,12 @@
             <td>{{val[0][0]['wednesday']}}</td>
             <td>{{val[0][0]['thursday']}}</td>
             <td>{{val[0][0]['friday']}}</td>
-
-            <td><button type="approvebutton"><span></span>Approve</button></td>
-            <td><button type="rejectbutton"><span></span>Reject</button></td>
+            <td><button type="approvebutton"><a
+                        href="/status?eid={{val[0][0]['eid']}}&aid={{val[0][0]['aid']}}&ed={{val[0][0]['end_date']}}&status=APPROVED">APPROVE</button></a>
+            </td>
+            <td><button type="rejectbutton"><a
+                        href="/status?eid={{val[0][0]['eid']}}&aid={{val[0][0]['aid']}}&ed={{val[0][0]['end_date']}}&status=REJECTED">REJECT</button></a>
+            </td>
         </tr>
         <tr>
             <td></td>
@@ -62,10 +68,8 @@
     </tbody>
 
 </table>
-<form align="right" name="form1" method="post" action="aircraft.html">
-    <label class="logoutLblPos">
-        <input name="submit2" type="submit" id="submit" value="LOG OUT">
-    </label>
-</form>
+<label class="logoutLblPos">
+    <button name="submit2" type="button"><a href="/employee_logout">Logout</a></button>
+</label>
 
 </html>

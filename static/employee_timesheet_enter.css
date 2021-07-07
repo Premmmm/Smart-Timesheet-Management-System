@@ -78,7 +78,9 @@ tr:nth-child(odd){
     top: 70%;
     margin-left: 300px;
 }
-
+body{
+	background-image: url(assets/bg1.jpg);
+}
 .button1{
 	border: none;
 	outline: none;
