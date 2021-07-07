@@ -1,0 +1,139 @@
+@import url('https: //fonts.googleapis.com/css?family=Open+Sans|Roboto');
+
+*{
+	margin: 0;
+	padding: 0;
+	outline: 0;
+}
+
+
+.filter{
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 1;
+	opacity: .7;
+}
+
+table{
+	position: absolute;
+	z-index: 2;
+	left: 50%; 
+	top: 50%;
+	transform: translate(-50%,-50%);
+	width: 60%;
+	border-collapse: collapse;
+	border-spacing: 0;
+	background: #fafafa;
+	text-align: center;
+	border-radius: 12px 12px 0px 0px;
+	overflow: hidden;
+	box-shadow: 0 2px 12px rgba(32, 32, 32, .3);
+}
+
+th,td{
+	padding: 12px 8px;
+}
+
+th{
+	background: #1e90ff;
+	color: #fafafa;
+	text-transform: uppercase;
+	font-family: 'Roboto',sans-serif;
+}
+
+td{
+	font-family: 'Open Sans',sans-serif;
+}
+
+tr:nth-child(odd){
+	background-color: #eeeeee;
+}
+
+.button_container{
+	display: flex;
+	justify-content:center;
+	align-items: center;
+}
+.msg {
+    text-align: center;
+    color: red;
+    width: 100%;
+	text-size-adjust: 10px;
+}
+.button{
+	border: none;
+	outline: none;
+	height: 40px;
+	background: #1e90ff;
+	color: #fff;
+	cursor: pointer;
+	font-size: 18px;
+	align-content:center;
+	padding: 0px 100px;
+	border-radius: 20px;
+	position: absolute;
+    top: 70%;
+    margin-left: 300px;
+}
+
+.button1{
+	border: none;
+	outline: none;
+	height: 40px;
+	cursor: pointer;
+	background: #1e90ff;
+	color: #fff;
+	font-size: 18px;
+	margin-right: 350px;
+	align-content:center;
+	padding: 0px 100px;
+	border-radius: 20px;
+	position: absolute;
+    top: 70%;
+
+}
+input[type='text']{
+	height: 30px;
+	text-align: center;
+}
+
+.loginbox input[type="submit"]:hover
+{
+	cursor: pointer;
+	background: #ffc107;
+	color: #000;
+}
+
+h3{
+	position: absolute;
+	top: 30%;
+	font-family: 'Roboto',sans-serif;
+	margin-left: 60px;
+}
+p{
+	position: absolute;
+	top: 60%;
+	font-family: 'Roboto',sans-serif;
+	font-size: 20px;
+	margin-left: 60px;
+}
+
+p1{
+	position: absolute;
+	top: 65%;
+	font-family: 'Roboto',sans-serif;
+	font-size: 20px;
+	margin-left: 60px;
+}
+
+h1{
+	position: absolute;
+	top: 10%;
+	margin-left: 45%;
+	font-weight: bold;
+	font-size:30px;
+	font-family: 'Roboto',sans-serif;
+}

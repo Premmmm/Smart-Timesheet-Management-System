@@ -1,0 +1,128 @@
+*,
+*::before,
+*::after{
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0; 
+}
+
+h1 {
+    font-size: 50px;
+    color: white;
+	margin-top: -6%;
+    background: inherit;
+}
+.logoutLblPos {
+    position: fixed;
+    right: 15px;
+    top: 30px;
+}
+input[name=submit2] {
+    background:white;
+    color:#2962ff;
+    border: none;
+    padding: 10px;
+    width: auto;
+    height: auto;
+    font-size: 20px;
+    font-weight: bold;
+}
+body{
+	font-family: Mukta, sans-serif;
+	height: 100vh;
+	display: grid;
+	background-image: url(assets/bg1.jpg);
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	justify-content: center;
+	align-items: center;
+	color: #4f546c;
+	font-size: 0.9rem;
+	background-color: #f9fbff;
+} 
+.button{
+	border: none;
+	outline: none;
+	font-family: Mukta, sans-serif;
+	height: 40px;
+	background: #1e90ff;
+	color: #fff;
+	font-size: 18px;
+	align-content:center;
+	padding: 0px 100px;
+	box-shadow:0 5px 10px #e1e5ee;
+	position: absolute;
+	border-radius: 20px;
+    top: 10%;
+    margin-left: 1050px;
+}
+
+th{
+	padding: 1.5rem 2.67rem;
+	text-transform: uppercase;
+	letter-spacing: 0.1rem;
+	font-size: 0.75rem;
+	font-weight: 900;
+	text-align: center;
+}
+
+thead{
+	box-shadow: 0 5px 10px #e1e5ee;
+}
+
+td{
+	padding: 1rem 2rem;
+	text-align: center;
+	font-weight:600;
+}
+
+a{
+	text-decoration: none;
+	color: #2962ff; 
+}
+
+tr:nth-child(even){
+		background-color: #f4f6fb;
+	}
+
+.pending{
+		border-radius: 0.2rem;
+		background-color: yellow;
+		padding: 0.2rem 1rem;
+		text-align: center;
+		color:#8B8000;
+        }
+.rejected{
+		border-radius: 0.2rem;
+		background-color: red;
+		padding: 0.2rem 1rem;
+		text-align: center;
+		color: white;
+		}
+
+.submitted{
+		border-radius: 0.2rem;
+		background-color: #fff0c2;
+		padding: 0.2rem 1rem;
+		text-align: center;
+		color: #a68b00;
+        }
+
+.approved{
+	    border-radius: 0.2rem;
+		background-color: #c8e6c9;
+		padding: 0.2rem 1rem;
+		text-align: center;
+		color: #388e3c;
+}
+		
+table{
+	border-collapse: collapse;
+	/* box-shadow: 0 5px 10px #e1e5ee; */
+	background-color: white;
+	border-radius: 5px;
+	text-align: left;
+	margin-top: -10%;
+	overflow: hidden;	
+}

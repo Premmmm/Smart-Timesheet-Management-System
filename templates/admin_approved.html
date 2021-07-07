@@ -1,0 +1,53 @@
+<html>
+
+<head>
+    <title>APPROVED</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='admin_approved.css') }}">
+</head>
+
+<h1 align="center">APPROVED EMPLOYEE TIMESHEET</h1>
+<form action="" method="POST">
+    <input type="text" name="get_id" placeholder="Enter ID" required>
+    <button type="submit" name="seach_by_id">SEARCH</button>
+
+</form>
+<table>
+    <thead>
+        <tr>
+            <th>EmployeeID</th>
+            <th>Start_Date</th>
+            <th>End_Date</th>
+            <th>Saturday</th>
+            <th>Sunday</th>
+            <th>Monday</th>
+            <th>Tuesday</th>
+            <th>Wednesday</th>
+            <th>Thursday</th>
+            <th>Friday</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for val in adminApprovedData %}
+        <tr>
+            <td>{{val[0]['eid']}}</td>
+            <td>{{val[0]['start_date']}}</td>
+            <td>{{val[0]['end_date']}}</td>
+            <td>{{val[0]['saturday']}}</td>
+            <td>{{val[0]['sunday']}}</td>
+            <td>{{val[0]['monday']}}</td>
+            <td>{{val[0]['tuesday']}}</td>
+            <td>{{val[0]['wednesday']}}</td>
+            <td>{{val[0]['thursday']}}</td>
+            <td>{{val[0]['friday']}}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+
+</table>
+<form align="right" name="form1" method="post" action="aircraft.html">
+    <label class="logoutLblPos">
+        <input name="submit2" type="submit" id="submit" value="LOG OUT">
+    </label>
+</form>
+
+</html>

@@ -1,0 +1,14 @@
+								first screen (Emp login/admin login)
+									|
+				Emp login (verification)				admin login (verification)
+					 |							   |
+			  Previous submissions screen (logout)	               (Pending/Approved/All) Search/ logout		
+					 |
+			      dates (sunday to saturday)	
+			     (emp id, start date, end date)	
+
+
+			
+emp table 1  (eid, name, password)  --> emp table 2 (eid,uniqueid,1-7, start date, end date, status ,active flag)
+
+admin table (aid, name, pass)

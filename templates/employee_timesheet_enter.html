@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Timesheet</title>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style3.css') }}">
+	<h1>TIMESHEET ENTRY</h1>
+</head>
+
+<body>
+	<h3>Name:abcd</h3>
+	<div class="filter">
+	</div>
+	<div>
+		<table>
+			<thead>
+				<tr>
+					<th>Employee ID</th>
+					<th>Status</th>
+					<th>Start Date</th>
+					<th>End Date</th>
+					<th>Saturday</th>
+					<th>Sunday</th>
+					<th>Monday</th>
+					<th>Tuesday</th>
+					<th>Wednesday</th>
+					<th>Thursday</th>
+					<th>Friday</th>
+				</tr>
+				<tr>
+					<form action="/employee_timesheet_enter" method="POST">
+						<td><input readonly type="text" value="{{ct[0]}}" name="eid" maxlength="4" size="17"></td>
+						<td><input readonly type="text" value="{{ct[10]}}" name="status" maxlength="4" size="17"></td>
+						<td><input readonly type="text" value="{{ct[1]}}" name="start_date" maxlength="4" size="17">
+						</td>
+						<td><input readonly type="text" value="{{ct[2]}}" name="end_date" maxlength="4" size="17"></td>
+						<td><input type="text" value="{{ct[3]}}" name="sat" maxlength="4" size="17"></td>
+						<td><input type="text" value="{{ct[4]}}" name="sun" maxlength="4" size="17"></td>
+						<td><input type="text" value="{{ct[5]}}" name="mon" maxlength="4" size="17"></td>
+						<td><input type="text" value="{{ct[6]}}" name="tue" maxlength="4" size="17"></td>
+						<td><input type="text" value="{{ct[7]}}" name="wed" maxlength="4" size="17"></td>
+						<td><input type="text" value="{{ct[8]}}" name="thu" maxlength="4" size="17"></td>
+						<td><input type="text" value="{{ct[9]}}" name="fri" maxlength="4" size="17"></td>
+				</tr>
+			</thead>
+		</table>
+		<p>Maximum hours: 10</p>
+		<p1>Minimum hours : 0</p1>
+	</div>
+	<div class="msg">{{ msg }} </div>
+	<div class="button_container">
+		<input type="submit" name="" disabled class="button1">
+		<button type="button" class="button"><a href="/employee_logout">Logout</a></button>
+		</form>
+	</div>
+
+</body>
+
+</html>

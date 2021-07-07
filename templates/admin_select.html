@@ -1,0 +1,21 @@
+<html>
+
+<head>
+    <title>Aircraft website</title>
+    <link href="{{ url_for('static', filename='admin.css')}}" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+    <header>
+        <div class="content">
+            <h1>Timesheet Details</h1>
+            <div>
+                <a href="/pending?id={{aid}}"><button type="button"><span></span>PENDING</button></a>
+                <a href="/approved?id={{aid}}"><button type="button"><span></span>APPROVED</button></a>
+                <a href="/all?id={{aid}}"><button type="button"><span></span>ALL</button></a>
+            </div>
+        </div>
+    </header>
+</body>
+
+</html>

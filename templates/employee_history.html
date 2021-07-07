@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Timesheet {{history[0][0]['eid']}} </title>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style2.css') }}">
+</head>
+<h1 align="center">EMPLOYEE TIMESHEET</h1>
+
+<body>
+	<table>
+		<thead>
+			<tr>
+				<th>Emp ID</th>
+				<th>Status</th>
+				<th>Start Date</th>
+				<th>End Date</th>
+				<th>Saturday</th>
+				<th>Sunday </th>
+				<th>Monday</th>
+				<th>Tuesday</th>
+				<th>Wednesday</th>
+				<th>Thursday</th>
+				<th>Friday</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for val in history %}
+			<tr>
+				<td><a
+						href="/employee_timesheet_enter?id={{val[0]['eid']}}&sd={{val[0]['start_date']}}&ed={{val[0]['end_date']}}&status={{val[0]['status']}}">{{val[0]['eid']}}
+				</td>
+				{% if val[0]['status'].lower() =='approved' %}
+				<td>
+					<p class="approved">{{val[0]['status'].upper()}}</p>
+				</td>
+				{% endif %}
+				{% if val[0]['status'].lower() =='pending' %}
+				<td>
+					<p class="pending">{{val[0]['status'].upper()}}</p>
+				</td>
+				{% endif %}
+				{% if val[0]['status'].lower() =='submitted' %}
+				<td>
+					<p class="submitted">{{val[0]['status'].upper()}}</p>
+				</td>
+				{% endif %}
+				{% if val[0]['status'].lower() =='rejected' %}
+				<td>
+					<p class="rejected">{{val[0]['status'].upper()}}</p>
+				</td>
+				{% endif %}
+				<td>{{val[0]['start_date']}}</td>
+				<td>{{val[0]['end_date']}}</td>
+				<td>{{val[0]['saturday']}}</td>
+				<td>{{val[0]['sunday']}}</td>
+				<td>{{val[0]['monday']}}</td>
+				<td>{{val[0]['tuesday']}}</td>
+				<td>{{val[0]['wednesday']}}</td>
+				<td>{{val[0]['thursday']}}</td>
+				<td>{{val[0]['friday']}}</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+	<form align="right" name="form1" method="post" action="aircraft.html">
+		<label class="logoutLblPos">
+			<input name="submit2" type="submit" id="submit" value="LOG OUT">
+		</label>
+	</form>
+</body>
+
+</html>
