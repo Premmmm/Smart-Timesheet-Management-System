@@ -4,6 +4,14 @@ from flask_mysqldb import MySQL
 import MySQLdb.cursors
 import re
 
+# Databases in MySQL
+# Database name = timesheet
+
+# Tables in MySql
+# employee - contains employee credentials
+# admin - contains admin credentials
+# employee_latest - contains only the employee's latest submission
+#
 # get - backend to front end
 # post - frontend to backed
 
@@ -21,33 +29,36 @@ app.config['MYSQL_DB'] = 'timesheet'
 
 mysql = MySQL(app)
 
-# Opening screen route
-
 
 @app.route('/')
 @app.route('/MainScreen')
 def MainScreen():
     return render_template("MainScreen.html")
 
-# Employee login route
-
 
 @app.route('/employee_login', methods=['GET', 'POST'])
 def employee_login():
+    # Initializing message variable
     msg = ''
+    # Checking for GET request, this is triggered automatically when the page renders
     if request.method == "GET":
         return render_template("employee_login.html", msg=msg)
+    # This is trigered for POST request
     else:
+        # Getting entered id, username and password from form
         id = request.form['id']
         username = request.form['username']
         password = request.form['password']
+        # Initializing cursor
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        # Executing query to check employee credentials are in the table
         cursor.execute(
             'SELECT * FROM employee WHERE eid = %s AND password = %s AND username =%s', [id, password, username])
+        # Fetching the data
         account = cursor.fetchone()
+        # Checking if the returned query tuple is not empty
         if account:
             session['employeeside_eid'] = account['eid']
-            print("Employee logged in successfully")
             session['employeeloggedin'] = True
             return redirect(url_for('employee_history'))
         else:
@@ -55,7 +66,6 @@ def employee_login():
         return render_template('employee_login.html', msg=msg)
 
 
-# Employee history route
 @app.route('/employee_history')
 def employee_history():
     # setting up cursor for MySQL
@@ -96,7 +106,6 @@ def employee_history():
     return render_template('employee_history.html', history=empTimesheetHistoryList)
 
 
-# Employee timesheet enter route
 @app.route('/employee_timesheet_enter', methods=['GET', 'POST'])
 def employee_timesheet_enter():
     if session['employeeloggedin'] == True:
@@ -106,8 +115,7 @@ def employee_timesheet_enter():
             end_date = request.args.get("ed")
             start_date = request.args.get("sd")
             status = request.args.get("status")
-            print(f'id: {id}')
-            print(f'Status: {status}')
+
             # Setting cursor
             cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
             currentTimesheet = [id, start_date, end_date,
@@ -206,8 +214,6 @@ def employee_timesheet_enter():
     else:
         return render_template('employee_login.html')
 
-# Emplpyee logout route
-
 
 @app.route('/employee_logout')
 def logout():
@@ -225,17 +231,22 @@ def admin_login():
         return render_template("admin_login.html", msg=msg)
     # Checking if the request is a post request
     elif request.method == 'POST':
+        # Getting entered id, username and assword
         id = request.form['id']
         username = request.form['username']
         password = request.form['password']
+        # Initializing cursor
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        # Executing querq to login admin
         cursor.execute(
             'SELECT * FROM admin WHERE aid = %s AND password = %s AND username =%s', [id, password, username])
         account = cursor.fetchone()
+        # Checking if the query returned any data
         if account:
             session['userloggedin'] = True
             session['adminside_aid'] = id
             return redirect(url_for("admin_select"))
+        # If the query doesnt return data we send an message.
         else:
             msg = "Incorrect ID/Username/Password"
     return render_template("admin_login.html", msg=msg)
@@ -250,28 +261,44 @@ def admin_select():
 def pending():
     # This checks for get request
     if request.method == "GET":
+        # Getting aid which is saved before in session
         aid = session['adminside_aid']
+        # Initializing cursor
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
+        # Executing query on employee_latest table to get all the employees under this admin and orderng it
         cursor.execute(
             "select * from employee_latest where aid=%s and status=%s order by eid,end_date desc", [aid, "SUBMITTED"])
+        # Fetching all the rows
         employeeData = cursor.fetchall()
+        # Initializing list
         employeeAndAdminDataList = []
+        # Checking if the returned query tuple is empty
         if employeeData:
+            # Looping through the returned query tuple
             for val in employeeData:
+                # With the looping data, querying admin_check to get the recorded data
                 cursor.execute("Select * from admin_check where aid=%s and eid=%s and end_date=%s", [
                                aid, val['eid'], val['end_date']])
+                # Getting only one data
                 adminCheckData = cursor.fetchone()
+                # Checnkig if returned query tuple exists
                 if adminCheckData:
+                    # Appending a list of lists which has employeeData and adminCheckData to another list
                     employeeAndAdminDataList.append([[{'eid': val['eid'], 'saturday': val['sat'], 'sunday': val['sun'], 'monday': val['mon'], 'tuesday': val['tue'], 'wednesday': val['wed'], 'thursday': val['thu'], 'friday': val['fri'], 'start_date':val['start_date'], 'end_date':val['end_date'], 'aid':aid}
                                                       ], [{'saturday': adminCheckData['sat'], 'sunday': adminCheckData['sun'], 'monday': adminCheckData['mon'],
                                                            'tuesday': adminCheckData['tue'], 'wednesday': adminCheckData['wed'], 'thursday': adminCheckData['thu'], 'friday': adminCheckData['fri']}]])
+                
+                # This statement executes when there is no matching data in admin_check table
                 else:
+                    # Appending a list of lists which has employeeData and N/A to another list
                     employeeAndAdminDataList.append([[{'eid': val['eid'], 'saturday': val['sat'], 'sunday': val['sun'], 'monday': val['mon'], 'tuesday': val['tue'], 'wednesday': val['wed'], 'thursday': val['thu'], 'friday': val['fri'], 'start_date':val['start_date'], 'end_date':val['end_date'], 'aid':aid}
                                                       ], [{'saturday': 'N/A', 'sunday': 'N/A', 'monday': 'N/A',
                                                            'tuesday': 'N/A', 'wednesday': 'N/A', 'thursday': 'N/A', 'friday': 'N/A'}]])
         cursor.close()
         return render_template('admin_pending.html', employeeAdminData=employeeAndAdminDataList)
-    else:
+    
+    # This is triggered for search bar
+    elif request.method == "POST":
         entered_eid = request.form['entered_eid']
         aid = session['adminside_aid']
         cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
@@ -298,18 +325,26 @@ def pending():
 
 @app.route('/status')
 def status():
+    # Getting data from URL
     eid = request.args.get('eid')
     end_date = request.args.get('ed')
     status = request.args.get('status')
     aid = request.args.get('aid')
-    print(status)
-    print(type(status))
-    print(type(str(status)))
     cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-    cursor.execute('update employee_latest set status=%s where eid=%s and aid=%s and end_date=%s', [
-                   status, eid, aid, end_date])
+    # Checking if status is APPROVED
+    if(status == 'APPROVED'):
+        # IF approved, deleting data from employee_latest table
+        cursor.execute(
+            'delete from employee_latest where eid=%s and end_date=%s', [eid, end_date])
+    # this is triggered when the status if REJECTED
+    else:
+        # Now updating the status in employee_latest table
+        cursor.execute('update employee_latest set status=%s where eid=%s and aid=%s and end_date=%s', [
+            status, eid, aid, end_date])
+    # Updating status in emplpyee_history table
     cursor.execute('update employee_history set status=%s where eid=%s and aid=%s and end_date=%s and active_flag=%s', [
                    status, eid, aid, end_date, "Y"])
+    # Committing the data to the table
     mysql.connection.commit()
     return redirect(url_for('pending'))
 
@@ -390,6 +425,7 @@ def all():
                 adminAllDataList.append([{'eid': val['eid'], 'status':val['status'], 'saturday': val['sat'], 'sunday': val['sun'], 'monday': val['mon'], 'tuesday': val['tue'], 'wednesday': val['wed'], 'thursday': val['thu'], 'friday': val['fri'], 'start_date':val['start_date'], 'end_date':val['end_date'], 'active_flag':val['active_flag']}
                                          ])
         return render_template('admin_all.html', adminAllData=adminAllDataList)
+
 
 # main function
 if __name__ == "__main__":
