@@ -6,10 +6,9 @@
 </head>
 
 <h1 align="center">APPROVED EMPLOYEE TIMESHEET</h1>
-<form action="" method="POST">
-    <input type="text" name="get_id" placeholder="Enter ID" required>
-    <button type="submit" name="seach_by_id">SEARCH</button>
-
+<form action="/approved" method="POST">
+    <input type="text" name="entered_eid" placeholder="ENTER EID" required>
+    <button class="submit_button" type="submit" name="seach_by_id">SEARCH</button>
 </form>
 <table>
     <thead>
@@ -44,10 +43,10 @@
     </tbody>
 
 </table>
-<form align="right" name="form1" method="post" action="aircraft.html">
-    <label class="logoutLblPos">
-        <input name="submit2" type="submit" id="submit" value="LOG OUT">
-    </label>
-</form>
-
+<label class="logoutLblPos">
+    <button name="submit2" type="button"><a href="/employee_logout">LOGOUT</a></button>
+</label>
+<label class="backLblPos">
+    <button name="submit3" type="button"><a href="/admin_select">BACK</a></button>
+</label>
 </html>

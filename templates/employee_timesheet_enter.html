@@ -6,6 +6,7 @@
 	<title>Timesheet</title>
 	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='employee_timesheet_enter.css') }}">
 	<h1>TIMESHEET ENTRY</h1>
+	<h2>Min: 0 hours Max: 10 hours</h2>
 </head>
 
 <body>
@@ -27,39 +28,46 @@
 				</tr>
 				<tr>
 					<form action="/employee_timesheet_enter" method="POST">
-						<td><input readonly type="text" value="{{ct[0]}}" name="eid" maxlength="4" size="17"></td>
-						<td><input readonly type="text" value="{{ct[10]}}" name="status" maxlength="4" size="17"></td>
-						<td><input readonly type="text" value="{{ct[1]}}" name="start_date" maxlength="4" size="17">
+						<td><input readonly type="text" value="{{ct[0]}}" name="eid" size="17"></td>
+						<td><input readonly type="text" value="{{ct[10]}}" name="status" size="17"></td>
+						<td><input readonly type="text" value="{{ct[1]}}" name="start_date" size="17">
 						</td>
 						<td><input readonly type="text" value="{{ct[2]}}" name="end_date" maxlength="4" size="17"></td>
-						<td><input type="text" value="{{ct[3]}}" name="sat" maxlength="4" size="17"></td>
-						<td><input type="text" value="{{ct[4]}}" name="sun" maxlength="4" size="17"></td>
-						<td><input type="text" value="{{ct[5]}}" name="mon" maxlength="4" size="17"></td>
-						<td><input type="text" value="{{ct[6]}}" name="tue" maxlength="4" size="17"></td>
-						<td><input type="text" value="{{ct[7]}}" name="wed" maxlength="4" size="17"></td>
-						<td><input type="text" value="{{ct[8]}}" name="thu" maxlength="4" size="17"></td>
-						<td><input type="text" value="{{ct[9]}}" name="fri" maxlength="4" size="17"></td>
+						<td><input type="number" value="{{ct[3]}}" name="sat" max="10" min="0" size="17">
+						</td>
+						<td><input type="number" value="{{ct[4]}}" name="sun" max="10" min="0" size="17">
+						</td>
+						<td><input type="number" value="{{ct[5]}}" name="mon" max="10" min="0" size="17">
+						</td>
+						<td><input type="number" value="{{ct[6]}}" name="tue" max="10" min="0" size="17">
+						</td>
+						<td><input type="number" value="{{ct[7]}}" name="wed" max="10" min="0" size="17">
+						</td>
+						<td><input type="number" value="{{ct[8]}}" name="thu" max="10" min="0" size="17">
+						</td>
+						<td><input type="number" value="{{ct[9]}}" name="fri" max="10" min="0" size="17">
+						</td>
 				</tr>
 			</thead>
 		</table>
-		<p>Maximum hours: 10</p>
-		<p1>Minimum hours : 0</p1>
 	</div>
 	<div class="msg">{{ msg }} </div>
 	<div class="button_container">
 		{% if ct[10].lower() == "submitted" %}
-		<input type="submit" name="" disabled class="button1" />
+		<input type="submit" value="SUBMIT" name="SUBMIT" disabled class="button1" />
 		{% endif %}
 		{% if ct[10].lower() == "approved" %}
-		<input type="submit" name="" disabled class="button1" />
+		<input type="submit" value="SUBMIT" name="SUBMIT" disabled class="button1" />
 		{% endif %}
 		{% if ct[10].lower() == "pending" %}
-		<input type="submit" name="" class="button1" />
+		<input type="submit" value="SUBMIT" name="SUBMIT" class="button1" />
 		{% endif %}
 		{% if ct[10].lower() == "rejected" %}
-		<input type="submit" name="" class="button1" />
+		<input type="submit" value="SUBMIT" name="SUBMIT" class="button1" />
 		{% endif %}
-		<button type="button" class="button"><a href="/employee_logout">Logout</a></button>
+		<label class="logoutLblPos">
+			<button name="submit2" type="button"><a href="/employee_logout">LOGOUT</a></button>
+		</label>
 		</form>
 	</div>
 

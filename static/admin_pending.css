@@ -6,7 +6,6 @@
 	padding: 0;
 }
 
-
 body{
 	font-family: Mukta, sans-serif;
 	height: 100vh;
@@ -88,7 +87,7 @@ tr:nth-child(even){
 form {
 			position: absolute;
 			margin-left: 15px;
-			top: 190px;
+			top: 110px;
 			display: flex;
 			justify-content:space-around;
 			align-items:center;
@@ -109,6 +108,9 @@ form {
 }
 input[type="text"]{
 	height: 30px;
+	border-radius: 3px;
+	border: none;
+	padding-left: 10px;
 	width: 300px;
 }
 .approved{
@@ -120,29 +122,55 @@ input[type="text"]{
 }
 		
 table{
-	top: 20px;
+	top: 170px;
 	border-collapse: collapse;
 	background-color: white;
     border-radius: 5px;
+	left: 15px;
 	text-align: center;
 	overflow: hidden;	
+	position: fixed;
 }
-
 
 h1 {
     font-size: 50px;
-    margin-top: -4%;
+    margin-top: -44%;
     color: white;
     background: inherit;
+
 }
 tr:nth-child(even) {
     background-color: #f2f2f2;
 }
-
+.backLblPos {
+    position: fixed;
+    left: 15px;
+    top: 30px;
+}
+button[name=submit3] {
+    background:#2962ff;
+    color:white;
+    border: none;
+    padding: 10px;
+    width: 120px;
+    height: auto;
+    font-size: 20px;
+    font-weight: bold;
+}
 .logoutLblPos {
     position: fixed;
     right: 15px;
     top: 30px;
+}
+button[name=submit2] {
+    background:#2962ff;
+    color:white;
+    border: none;
+    padding: 10px;
+    width: 120px;
+    height: auto;
+    font-size: 20px;
+    font-weight: bold;
 }
 a{
 	text-decoration: none;
@@ -171,64 +199,9 @@ button[type="rejectbutton"]{
 	width: 100px;
 }
 
-button[name=submit2] {
-    background:#2962ff;
-    color:white;
-    border: none;
-    padding: 10px;
-    width: 100px;
-    height: auto;
-    font-size: 20px;
-    font-weight: bold;
-}
+
 thead{
 	box-shadow: 0 5px 10px #e1e5ee;
 }
 
-
-/* table {
-    border: "2";
-    line-height: 25px;
-    width: 100%;
-    color: #0033cc;
-    font-family: monospace;
-    font-size: 18px;
-    text-align: center;
-}
-
-th {
-    background-color: #0033cc;
-    color: white;
-}
-
-h1 {
-    margin: 10px 0 10px 0;
-    font-family: Rockwell, "Courier Bold", Courier, Georgia, Times, "Times New Roman", serif;
-    font-size: 50px;
-    text-transform: uppercase;
-    color: #3747b3;
-    background: inherit;
-}
-
-tr:nth-child(even) {
-    background-color: #f2f2f2;
-}
-
-.logoutLblPos {
-    position: fixed;
-    right: 15px;
-    top: 15px;
-}
-
-button [type="button"] {
-    cursor: pointer;
-}
-
-body {
-    background-image: url("{{ url_for('static', filename='assets/bg1.jpg') }}");
-    height: 100%;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-}*/
 
