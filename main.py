@@ -11,7 +11,9 @@ import re
 # employee - contains employee credentials
 # admin - contains admin credentials
 # employee_latest - contains only the employee's latest submission
-#
+# admin_check - contains employees actual recorded working hours
+# employee_history - contains all the history of the employee's updation and entry
+
 # get - backend to front end
 # post - frontend to backed
 
