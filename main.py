@@ -24,7 +24,7 @@ app.secret_key = 'Team-F'
 # MySQL Credentials
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'premraj123!'
+app.config['MYSQL_PASSWORD'] = ''
 app.config['MYSQL_DB'] = 'timesheet'
 
 mysql = MySQL(app)
