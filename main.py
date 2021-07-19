@@ -17,8 +17,6 @@ import re
 # get - backend to front end
 # post - frontend to backed
 
-# aid = ''
-
 app = Flask(__name__)
 
 app.secret_key = 'Team-F'
@@ -26,7 +24,7 @@ app.secret_key = 'Team-F'
 # MySQL Credentials
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = ''
+app.config['MYSQL_PASSWORD'] = 'premraj123!'
 app.config['MYSQL_DB'] = 'timesheet'
 
 mysql = MySQL(app)
@@ -81,11 +79,11 @@ def employee_history():
     empTimesheetHistoryList = []
     # Checking if the list is empty
     if empTimesheetDetails:
-        # Algorithm for calculating the current week's end (friday)
+        # Algorithm for calculating the current week's end (friday) monday =0, tuesday 1...
         friday = (datetime.now() + timedelta(days=(4 -
                                                    datetime.now().weekday()) % 7)).date()
-        # Algorithm for calculating the current week's start (saturday)
-        saturday = (
+        # Algorithm for calculating the current week's start (saturday) monday 1, tueday 2...
+        saturday = ( 
             datetime.now() - timedelta(days=((datetime.now().isoweekday() + 1) % 7))).date()
         # Iterating through each value in empTimesheetDetails
         for val in empTimesheetDetails:
@@ -338,6 +336,8 @@ def status():
         # IF approved, deleting data from employee_latest table
         cursor.execute(
             'delete from employee_latest where eid=%s and end_date=%s', [eid, end_date])
+        # Deleting data from admin_check also
+        cursor.execute('delete from admin_check where eid=%s and end_date=%s', [eid, end_date])
     # this is triggered when the status if REJECTED
     else:
         # Now updating the status in employee_latest table
