@@ -5,7 +5,7 @@ This web application is made to make timesheet entry easy, the data is done digi
 
 ## Tech Stack 
 
-### Mobile 
+### Technologies 
 1) Flask
 2) Html
 3) CSS
