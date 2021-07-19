@@ -16,9 +16,7 @@ This web application is made to make timesheet entry easy, the data is done digi
 ### Applications Used
 1) VS Code
 
-
 ## UI/UX
-
 <div>
   <img src="https://github.com/Premmmm/Smart-Timesheet-Management-System/blob/master/gitImages/1.MainScreen.png" />
   <img src="https://github.com/Premmmm/Smart-Timesheet-Management-System/blob/master/gitImages/2.EmployeeLogin.png" />
