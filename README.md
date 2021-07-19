@@ -18,7 +18,9 @@ This web application is made to make timesheet entry easy, the data is done digi
 
 ## UI/UX
 <div>
+  #### Main Screen
   <img src="https://github.com/Premmmm/Smart-Timesheet-Management-System/blob/master/gitImages/1.MainScreen.png" />
+  #### Employee Login Screen
   <img src="https://github.com/Premmmm/Smart-Timesheet-Management-System/blob/master/gitImages/2.EmployeeLogin.png" />
   <img src="https://github.com/Premmmm/Smart-Timesheet-Management-System/blob/master/gitImages/3.EmployeeHistory.png" />
   <img src="https://github.com/Premmmm/Smart-Timesheet-Management-System/blob/master/gitImages/4.EmployeeTimesheetEntry.png" />
