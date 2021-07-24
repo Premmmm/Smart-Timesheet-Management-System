@@ -7,8 +7,9 @@ This web application is made to make timesheet entry easy, the data is done digi
 
 ### Technologies 
 1) Flask
-2) Html
-3) CSS
+2) Python
+3) Html
+4) CSS
 
 ### Database
 1) MySQL Database
